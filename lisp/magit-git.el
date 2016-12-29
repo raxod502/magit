@@ -1075,7 +1075,7 @@ where COMMITS is the number of commits in TAG but not in REV."
 
 (defun magit-get-submodule-name (path)
   "Return the name of the submodule at PATH.
-PATH has to be relative to the working directory."
+PATH has to be relative to the super-repository."
   (cadr (split-string
          (car (or (magit-git-items
                    "config" "-z"
@@ -1084,6 +1084,11 @@ PATH has to be relative to the working directory."
                    (concat "^" (regexp-quote (directory-file-name path)) "$"))
                   (error "No such submodule `%s'" path)))
          "\n")))
+
+(defun magit-get-submodule-path (name)
+  "Return the path of the submodule named NAME.
+The returned path is relative to the super-repository."
+  )
 
 (defun magit-list-worktrees ()
   (let (worktrees worktree)
