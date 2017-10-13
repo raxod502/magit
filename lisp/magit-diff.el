@@ -228,6 +228,12 @@ visits the file in the working tree."
   :group 'magit-diff
   :type 'boolean)
 
+(defcustom magit-diff-highlight-keywords t
+  "Whether to highlight bracketed keywords in commit messages."
+  :package-version '(magit . "2.12.0")
+  :group 'magit-diff
+  :type 'boolean)
+
 ;;;; File Diff
 
 (defcustom magit-diff-buffer-file-locked t
@@ -1874,11 +1880,12 @@ or a ref which is not a branch, then it inserts nothing."
           (forward-line)
           (put-text-property beg (point) 'face 'magit-section-secondary-heading)
           (magit-insert-heading))
-        (save-excursion
-          (while (re-search-forward "\\[[^[]*\\]" nil t)
-            (put-text-property (match-beginning 0)
-                               (match-end 0)
-                               'face 'magit-keyword)))
+        (when magit-diff-highlight-keywords
+          (save-excursion
+            (while (re-search-forward "\\[[^[]*\\]" nil t)
+              (put-text-property (match-beginning 0)
+                                 (match-end 0)
+                                 'face 'magit-keyword))))
         (goto-char (point-max))))))
 
 (defun magit-insert-revision-notes (rev)

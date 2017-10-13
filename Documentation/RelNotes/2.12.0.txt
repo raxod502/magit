@@ -1,4 +1,4 @@
-Magit v2.11.1 Release Notes (unreleased)
+Magit v2.12.0 Release Notes (unreleased)
 ========================================
 
 Changes since v2.11.0
@@ -28,8 +28,34 @@ Changes since v2.11.0
   substitute for `magit-checkout'.  Setup instructions can be found in
   the manual.  #3104
 
+* Added new customizable options `magit-log-highlight-keywords' and
+  `magit-diff-highlight-keywords' which control whether text inside
+  brackets is highlighted in magit-log and magit-diff buffers
+  respectively.  #3190
+
+* When the names of Magit buffers are not uniquified then their names
+  now end with an asterisk.  When the `uniquify' package is used, then
+  that still is not possible due to limitations in that package.  #2841
+
+* Added the existing commands `magit-blame' and `magit-blob-next' to
+  the `magit-file-popup'.
+
+* Added new command `magit-blame-reverse'.  See the updated manual
+  for information on how to best use this and other blaming commands.
+  #3055
+
+* Kewords in brackets are now being highlighted in `magit-refs-mode'
+  buffers like they already were in logs.  #3179
+
 Fixes since v2.11.0
 -------------------
 
 * `git-rebase-mode-show-keybindings' failed to process non-English
   usage instructions in interactive rebase buffers.  #3175
+
+* Fixup commands did not warn about merges in the rebase range until
+  after creating the fixup commit.  #3176
+
+* Instant fixup allowed selecting a commit that is not reachable from
+  HEAD, which, for the instant variants (but only those), clearly is
+  a user mistake that should be caught immediately.  #3176
